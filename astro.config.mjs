@@ -1,16 +1,14 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import mdx from '@astrojs/mdx';
+import { unified } from '@astrojs/markdown-remark';
 import remarkMath from 'remark-math';
 import rehypeMathjax from 'rehype-mathjax';
 
 // https://astro.build/config
 export default defineConfig({
 	base: '/interactivos2-2026-20',
-	markdown: {
-		remarkPlugins: [remarkMath],
-		rehypePlugins: [rehypeMathjax],
-	},
 	integrations: [
 		starlight({
 			title: 'Sistemas Físicos Interactivos 2',
@@ -46,6 +44,13 @@ export default defineConfig({
 				},
 			],
 		}),
+		mdx(),
 	],
+	markdown: {
+		processor: unified({
+			remarkPlugins: [remarkMath],
+			rehypePlugins: [rehypeMathjax],
+		}),
+	},
 	site: 'https://jfUPB.github.io',
 });

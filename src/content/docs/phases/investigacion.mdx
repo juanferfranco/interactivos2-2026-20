@@ -1,6 +1,8 @@
 ---
 title: Investigación
 ---
+import { YouTube } from 'astro-embed';
+
 
 ## Propósito
 
@@ -26,4 +28,175 @@ En cada conversación debes mostrar tu bitácora, el historial de commits y argu
 
 ## Actividades
 
-Esta sección se irá actualizando durante el curso.
+### Actividad 01
+
+En esta unidad vamos a introducir el proyecto del curso mediante algunos que analizaremos y conversaremos:
+
+Comencemos con este video:
+
+<YouTube id="https://youtu.be/B6uHfTcI2f4?si=IadnzTETHGaa7lGs" />
+
+En estos enlaces puedes encontrar más información sobre el proyecto y al artista que lo desarrolló:
+
+* [Euphoric Beats, Interactive Feats: Inside PlexusPlay](https://derivative.ca/community-post/euphoric-beats-interactive-feats-inside-plexusplay/74647)
+* [Plexusplay](https://www.plexusplay.com/)
+
+### Actividad 02
+
+Vamos al [tablero](https://excalidraw.com/) y conversemos sobre el sistema físico interactivo en 
+tiempo real que vamos a construir. Hablaremos de los componentes fundamentales y de cómo se relacionan 
+entre sí.
+
+### Actividad 03
+
+Conversemos sobre esta fase de investigación y en qué consiste. Hablaremos de los entregables y de 
+cómo documentar tu proceso de investigación.
+
+### Actividad 04
+
+La idea de esta semana es comenzar a explorar y experimentar con la plataforma de audio. Te propongo 
+que comiences a experimentar con:
+
+* [Strudel](https://strudel.cc/workshop/getting-started/)
+* [Ableton Live](https://www.ableton.com/en/live/)
+* [Bitwig Studio](https://www.bitwig.com/)
+
+Te muestro un ejemplo de un experiemento de audio que hice con Strudel, pero primero contarte que la 
+idea salió de este video de Youtube.
+
+<YouTube id="https://youtu.be/6aezSL_GvZA?si=xXC-kpG7tT_3GgsR" />
+
+
+```javascript
+setcpm(35) // 140 beat
+
+// ==========================================
+// MEZCLADORA INDEPENDIENTE
+// ==========================================
+const BASS_ON    = 0
+const PIANO_ON   = 0
+const CEL = 0
+const VAR3 = 0
+const VAR1  = 0
+const VAR2 = 0
+
+// Bass: Sigue las tónicas de la progresión (Fmaj7 - G6 - Em7 - Am9)
+bass: note("{<f1 g1 e1 a1>}")
+  .sound("supersaw")
+  .lpf(slider(1187.4,300,2000)) 
+  .room(1)
+  .postgain(BASS_ON ? 0.3 : 0)
+
+piano : note("{<[f3,a3,c4,e4] [g3,b3,d4,e4] [e3,g3,b3,d4] [a3,c4,e4,b4]>}")  
+  .sound("piano")
+  .attack(slider(0.192,0,1)) 
+  .lpf(slider(1490,300,2000))
+  .room(1.2) 
+  .postgain(PIANO_ON ? 0.5 : 0)
+
+// ==========================================
+// CÉLULAS Y VARIACIONES MELÓDICAS
+// ==========================================
+const celula = "<[c5 e5] [b4 g5] [a4 d5] [b4 e5 c5]>"
+const var1   = "< [[c5 e5] [b4 g5]] [[c5 e5] [b4 g5]] [[a4 d5] [b4 e5 c5]] [[a4 d5] [b4 e5 c5]]>"
+const var2   = celula.transpose(12)
+const var3   = "{<[e5 c5] [f5 a4] [g5 d5] [f5 c5 e5]>}"
+
+// ==========================================
+// CANALES DE MELODÍA INDEPENDIENTES
+// ==========================================
+
+// Célula
+$celula: note(celula)
+  .sound("sine") 
+  .decay(0.4)
+  .sustain(0.2)
+  .room(1.5) 
+  .postgain(CEL ? 0.6 : 0)
+
+// Disminución rítmica
+$var1: note(var1)
+  .sound("sine") 
+  .decay(0.4)
+  .sustain(0.2)
+  .room(1.5) 
+  .postgain(VAR1 ? 0.5 : 0)
+
+// Transpuesta (Octava Alta)
+$var2: note(var2)
+  .sound("triangle") // sine, triangle
+  .decay(0.4)
+  .sustain(0.2)
+  .room(1.5) 
+  .postgain(VAR2 ? 0.2 : 0) 
+
+// Inversión
+$var3: note(var3)
+  .sound("sine") 
+  .attack(slider(0.359,0,1))
+  .lpf(slider(993.6,300,2000))
+  .postgain(VAR3 ? 0.3 : 0)
+```
+
+
+### Actividad 05
+
+En tu tiempo de trabajo autónomo, te voy a proponer que mires algunos video con ideas 
+y posibilidades de visuales interactivas. Siéntete libre de explorar y si quieres, 
+en actitud rabbit hole, puedes buscar más información sobre lo que te interese. 
+
+Te propongo que mires estos videos:
+
+<YouTube id="https://youtube.com/shorts/ve3Iok7guCQ?si=_pEwU5yU574aMnKl" />
+
+<YouTube id="https://youtube.com/shorts/wDPCKaxslMU?si=UGpEBNavwDZklRSG" />
+
+<YouTube id="https://youtube.com/shorts/fCVfXoSdtKs?si=vRFDl9YVGnufmN-X" />
+
+<YouTube id="https://youtube.com/shorts/TK1rFsmxFD4?si=1zq-76JqTkQt380l" />
+
+<YouTube id="https://youtube.com/shorts/Tdt9MerbEyE?si=yirqMrpanWAZdu6e" />
+
+<YouTube id="https://youtube.com/shorts/2B9spNUyzDE?si=ibtgWjkn-p7CyqI4" />
+
+<YouTube id="https://youtube.com/shorts/kSLZ_cUe0Kg?si=E6-puFe8b1rdFpiX" />
+
+<YouTube id="https://youtube.com/shorts/_omoB0FT2Yw?si=7I1Sm-Otq31bTJFk" />
+
+<YouTube id="https://youtu.be/D0EIxRJcIo4?si=0tAqqIXOhSNTqQWb" />
+
+<YouTube id="https://youtu.be/ahoaS0pCgV4?si=2J7IUP_XFJAjgYVP" />
+
+[Breakdown "Talk" ft. Jibaro's "Sara Silkin" - AI Motion Capture Experiment Nº3](https://www.patreon.com/uisato/posts/breakdown-talk-158983913?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_fan&utm_content=web_share)
+
+[Uisato Studio](https://uisato.studio/demos)
+
+<YouTube id="https://youtube.com/shorts/ZnZtadIwK7g?si=u7Fgwic6xRPD188x" />
+
+<YouTube id="https://youtube.com/shorts/NO4zE-Hby9Y?si=PLdMFNNa41Jx58Eg" />
+
+<YouTube id="https://youtube.com/shorts/TUrq5ndwgdQ?si=R4AfqRw6TsANbUbx" />
+
+<YouTube id="https://youtu.be/jAtk-SrIOJY?si=5PUO00TCjroOohN6" />
+
+<YouTube id="https://youtu.be/oviwpILXo5A?si=qHqmGmlLxX4Jjz2i" />
+
+<YouTube id="https://youtu.be/uEl2k8klH34?si=ZPsI12udSsXINtos" />
+
+<YouTube id="https://youtube.com/shorts/rquiyZEdav8?si=CFH4PkCjnIplSp5v" />
+
+<YouTube id="https://youtube.com/shorts/V3ZZ40ssK4Y?si=F4hjINHdn1ODLsPr" />
+
+<YouTube id="https://youtube.com/shorts/jzWf3f_sfLg?si=7dXDVp9SbKY-0RkN" />
+
+<YouTube id="https://youtube.com/shorts/qjUltQ4Ere8?si=GjFxfJcIAW41rKyb" />
+
+<YouTube id="https://youtube.com/shorts/pPoSIpHiL0Q?si=XNjnTQBzUszgf2RR" />
+
+<YouTube id="https://youtu.be/XJYcRn8lwec?si=fCprHkJiE3ZXTpvL" />
+
+<YouTube id="https://youtu.be/dkWwZ1CryYo?si=rMw-FU6uNNrY1NK5" />
+
+<YouTube id="https://youtube.com/shorts/jO5yF0WGV-w?si=-a8MA9NNAStz1FYZ" />
+
+
