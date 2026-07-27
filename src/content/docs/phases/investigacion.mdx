@@ -1,8 +1,8 @@
 ---
 title: Investigación
 ---
-import { YouTube, LinkPreview } from 'astro-embed';
-
+import { Aside } from '@astrojs/starlight/components';
+import { YouTube, LinkPreview, Vimeo} from 'astro-embed';
 
 ## Propósito
 
@@ -293,38 +293,414 @@ Esta actividad corresponderá a la segunda sesión de la semana 2 de la unidad. 
 todos tus compañeros y vamos a conversar sobre lo que hiciste, cómo lo hiciste y qué aprendiste. La idea es que todos 
 podamos aprender de la experiencia de cada uno.
 
-### Actividad 11: introducción a la creación de visuales interactivas
 
-Ahora vamos a comenzar a explorar la creación de visuales interactivas. En esta actividad vamos a explorar juntos 
-la herramienta que usaremos para tal fin. Se trata de TouchDesigner.
+### Actividad 11: repasa qué es el diseño y el arte generativos
+
+#### ¿Qué es el diseño y el arte generativos?
+
+El diseño generativo consiste en diseñar un sistema capaz de producir diseños, en vez de diseñar directamente una única pieza final.
+
+En un proceso tradicional, el diseñador determina de manera relativamente directa la forma final. En un proceso generativo, el 
+diseñador determina una intención, un conjunto de elementos, las relaciones entre ellos, reglas de transformación, entradas o datos, 
+límites que preservan la identidad, los criterios para evaluar y seleccionar los resultados. Después, el sistema produce una familia 
+de resultados posibles.
+
+Vamos a revisar juntos este material del diseñador Alemán Patrick Hübner para entender mejor el concepto de diseño generativo.
+
+<LinkPreview id="https://www.patrik-huebner.com/datadesigndictionary/generative-design/" title="Diseño generativo" />
+
+Patrick Hübner propone una forma de diseño basada en un método muy simple denominado input-process-output
+
+<LinkPreview id="https://www.patrik-huebner.com/method/" title="Input-process-output" />
+
+Para Hübner, el diseño generativo no se reduce a escribir un algoritmo. El diseño generativo combina storytelling, 
+programación, datos, interacción, inteligencia artificial y decisiones tradicionales de diseño para construir 
+narrativas y sistemas visuales dinámicos. El cambio esencial es pasar de producir objetos estáticos a construir 
+experiencias flexibles, reactivas y evolutivas.
+
+La unidad de diseño ya no es la imagen. Esta es probablemente la idea más importante para nosotros. En el diseño tradicional, la 
+unidad de diseño puede ser una imagen, una animación, una escena, una interfaz, una secuencia de video. En el diseño generativo, 
+la unidad de diseño es más bien la relación que produce la imagen, la animación o la experiencia. 
+Por ejemplo, en un sistema de partículas no estás diseñando principalmente la posición de cada partícula. Estás diseñando qué atrae a qué,  
+qué repele a qué, cómo se acumula la energía, cuándo aparece una ruptura, cómo influye el audio, qué permanece constante, qué puede cambiar, 
+qué memoria tiene el sistema. La imagen visible es una manifestación temporal de esas relaciones.
+
+Por eso Hübner habla de pasar de diseñar cosas a diseñar relaciones y de resultados fijos a marcos adaptativos. También describe 
+al diseñador menos como artesano ejecutor y más como alguien que explora reglas, define objetivos y cura resultados. 
+
+Es importante anotar que no todo lo procedural es buen diseño generativo. Un sistema puede producir infinitas formas y seguir siendo superficial. 
+Para Hübner, el punto de partida no debería ser esta idea: “Quiero usar partículas, ruido, IA o feedback”. Debería ser: “¿Qué quiero comunicar, 
+hacer sentir o hacer posible, y qué sistema de relaciones puede materializarlo?” En su propuesta pedagógica, el contexto y el mensaje aparecen 
+primero; después se buscan datos, reglas y formas capaces de expresarlos. El resultado no solo debe ser visualmente atractivo sino que debe 
+comunicar algo.
+
+**¿Cuál es la relación entre diseño generativo y arte generativo?**
+
+Comparten el mismo principio fundamental en el cual el creador construye o activa un sistema con cierto grado de autonomía. 
+[Philip Galanter](https://philipgalanter.com/downloads/200312_what_is_genart.pdf), una referencia importante en la teoría del arte 
+generativo, lo define como una práctica en la que el artista utiliza un sistema de reglas, programas, máquinas u otros procedimientos 
+que contribuye de manera autónoma a la creación de la obra.
+
+La diferencia entre arte generativo y diseño generativo no está necesariamente en la tecnología. Un sistema de partículas, un 
+autómata celular, un modelo de reacción-difusión o una red neuronal podrían emplearse en ambos.
+
+La diferencia suele estar en la finalidad y los criterios de juicio. Veamos algunas diferencias en la siguiente tabla:
+
+| Arte generativo                                                 | Diseño generativo                                                          |
+| --------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Puede partir de una pregunta poética, estética o crítica.       | Parte normalmente de una intención comunicativa, funcional o experiencial. |
+| No necesita resolver un problema externo claramente delimitado. | Debe responder a un contexto, necesidad, audiencia o restricción.          |
+| Puede valorar la ambigüedad y la interpretación abierta.        | Necesita conservar cierta coherencia, legibilidad o utilidad.              |
+| La obra puede ser la exploración del propio sistema.            | El sistema se diseña para cumplir una función más allá de sí mismo.        |
+
+
+Pero la frontera es porosa. Hübner cuenta que primero se aproximó al diseño generativo desde la experimentación artística y luego entendió su 
+potencial para la comunicación y las identidades visuales. Una creación propia puede ser simultáneamente arte generativo, porque investiga visualmente la 
+emergencia, la tensión o la transformación, y a su vez ser diseño generativo, porque esa investigación está dirigida por la narrativa de una canción, 
+una experiencia interactiva o un proyecto de curso.
+
+Por ejemplo, una simulación de partículas que simplemente produce comportamientos interesantes podría considerarse una exploración artística. 
+Pero si sus reglas fueron diseñadas para expresar cómo un caos emocional se transforma en mensaje dentro de una canción, ya existe también una 
+operación de diseño.
+
+**¿Cuál es la diferencia entre diseño generativo con código y con IA?**
+
+Sí hay diferencia, pero ambos pueden formar parte del diseño generativo. 
+
+**Con código**:
+
+
+El diseñador explicita las reglas. Algo como estos:
+
+``` js
+estado siguiente = función(
+    estado anterior,
+    entradas,
+    reglas,
+    parámetros
+)
+```
+
+Por ejemplo, si aumenta la energía de las frecuencias bajas, crece la presión; si la presión supera un umbral, el sistema se rompe; cada partícula 
+es atraída por sus vecinas; las rutas con más tránsito se fortalecen; la estructura pierde energía gradualmente. En este caso, el computador ejecuta 
+las reglas que se diseñaron. Esto ofrece control temporal preciso; comportamiento en tiempo real; reproducibilidad; posibilidad de depurar; relaciones 
+claras entre causa y efecto; consistencia visual; integración confiable con audio, sensores y controladores. Aquí el azar no elimina el control. Más 
+bien, permite diseñar un espacio de posibilidades y permite variación dentro de límites precisos.
+
+**Con IA**: 
+
+Muchas de las reglas están aprendidas. En modelos generativos de IA, el creador no escribe directamente todas las reglas que relacionan cada píxel, 
+forma o concepto. El modelo ha aprendido regularidades a partir de grandes cantidades de datos. Por tanto la intervención del creador es más indirecta. 
+El creador puede influir en el resultado mediante prompts, imágenes de referencia, datasets, entrenamiento o ajuste, condicionamientos, selección, 
+iteración, composición de modelos y curaduría de resultados.
+
+Resumamos en esta tabla:
+
+| Código procedural                                   | IA generativa                                                   |
+| --------------------------------------------------- | --------------------------------------------------------------- |
+| Reglas formuladas explícitamente.                   | Reglas aprendidas estadísticamente.                             |
+| Alta trazabilidad causal.                           | Causalidad menos transparente.                                  |
+| Precisión en comportamiento y tiempo.               | Potencia para generar forma, estilo y asociaciones semánticas.  |
+| El diseñador construye el espacio de posibilidades. | El diseñador navega y condiciona un espacio aprendido.          |
+| Muy apropiado para interacción en tiempo real.      | Muy apropiado para exploración formal y producción de material. |
+
+Volviendo a Hübner, este insiste en que diseño generativo, diseño basado en datos e inteligencia artificial no son sinónimos. La IA es una posibilidad 
+dentro de un campo más amplio. También plantea que elegir programación tradicional o IA depende del problema. Ambas pueden utilizarse para resolver de 
+maneras diferentes la forma o las reglas del sistema.
+
+A la hora de abordar un proyecto de diseño generativo podríamos pensar así:
+
+**Código**: “Sé qué relación quiero construir y necesito que se ejecute”.  
+**IA**: “Sé aproximadamente qué territorio formal o semántico quiero explorar, pero no puedo describir completamente cómo producir cada resultado”.
+**Diseño generativo híbrido**: “Uso IA para producir o descubrir material y código para convertirlo en un sistema temporal, interactivo y coherente”.
+
+En nuestro caso, para las necesidades específicas de nuestros proyectos, la combinación más sólida podría ser la de usar IA para explorar o 
+producir material (assets) y usar una herramienta como TouchDesigner y código para organizar el comportamiento. Por ejemplo: 
+IA para generar texturas, campos, máscaras, materiales, organismos visuales o referencias; TouchDesigner para controlar estados, transiciones, 
+interacción, audio-reactividad, feedback, composición y despliegue; GLSL, POPs, TOPs o SOPs para construir las relaciones que hacen vivir al sistema.
+
+Así la IA no reemplaza el sistema generativo, sino que alimenta su materialidad.
+
+<YouTube id="https://www.youtube.com/watch?v=D0EIxRJcIo4" title="[Release] Audioreactive Video Playhead - Definitive Edition | TouchDesigner + Google's VEO COMP" />
+
+<Aside type="danger" title="No es la única forma de hacer diseño generativo">
+Ojo, no quiero que pienses que la única forma de hacer diseño generativo es con IA y TouchDesigner. 
+Hay muchas otras formas de hacerlo. También puedes producir material usando algoritmos, con código procedural.
+
+</Aside>
+
+**¿A qué se refiere la mentalidad generativa?**
+
+La mentalidad generativa no es dominar una herramienta ni conocer muchos algoritmos. Es una forma de formular los problemas creativos. Hübner la presenta 
+como un desplazamiento de objetos a relaciones, de resultados a procesos, de piezas fijas a sistemas adaptativos, de controlar cada detalle a diseñar posibilidades, 
+de utilizar la máquina como herramienta a trabajar con ella como participante, de perseguir velocidad y espectáculo a buscar conexión, significado e intención. 
+En su último libro, [The Generative Mind](https://www.patrik-huebner.com/the-generative-mind-book/), Hübner advierte que la automatización puede llevar a 
+producir rápidamente resultados espectaculares pero poco profundos. La tarea del creador sigue siendo proteger el “por qué”, construir significado y 
+mantener la autoría, incluso cuando el sistema participa en la generación.
+
+Si quisiéramos reducir la mentalidad generativa a un conjunto de operaciones, podríamos proponer estas ocho:
+
+1. Intención: ¿Qué transformación, sensación o idea debe experimentar el espectador?  
+2. Entidades: ¿Qué elementos existen en el mundo del sistema?  Partículas, campos, cuerpos, señales, memorias, trazos, superficies, agentes.  
+3. Relaciones: ¿Cómo se afectan mutuamente? Atracción, repulsión, contagio, acumulación, erosión, cooperación, competencia.  
+4. Entradas: ¿Qué alimenta al sistema?  Audio, cuerpo, sensores, tiempo, datos, decisiones del participante.  
+5. Reglas: ¿Cómo se transforma el estado del sistema?  
+6. Invariantes: ¿Qué no puede cambiar sin que la propuesta pierda identidad?  Paleta de colores, densidad, ritmo, lenguaje de movimiento, 
+composición, comportamiento. 
+7. Variabilidad: ¿Qué debería ser diferente en cada ejecución? Rutas, agrupaciones, tiempos internos, texturas, conexiones, detalles.  
+8. Curaduría y reflexión: ¿Qué resultados son significativos y cuáles son solamente accidentes interesantes?  
+
+Ojo, esta última operación es crucial. El diseñador no acepta automáticamente todo lo que produce el sistema. Observa, selecciona, modifica 
+las reglas y vuelve a ejecutar. La mentalidad generativa es, por tanto, pensar como diseñador de condiciones, relaciones y posibilidades, 
+sin renunciar al juicio ni a la dirección.
 
 ### Actividad 12: modelo de datos y flujo de trabajo procedural en TouchDesigner
 
-Una vez exploramos lo básico de TouchDesigner, vamos a profundizar en un asunto fundamental y es comprender 
-el modelo de datos que maneja TouchDesigner. La idea es que comprendas cómo se manejan los datos y cómo funciona 
-el flujo de trabajo procedural del programa.
+En esta actividad vamos a explorar juntos la herramienta, TouchDesigner, que usaremos para materializar nuestras visuales generativas y parametrizables. 
+Recuerda que te he pedido que revises el [material oficial de aprendizaje](https://learn.derivative.ca/) de la herramienta propuesto por Derivative, 
+la empresa que desarrolla TouchDesigner.
 
-### Actividad 13: caso de estudio TDSyncStrudel
+Adicionalmente, para esta revisión que haremos juntos, te dejaré un par de enlaces con material de referencia que te servirá para repasar de nuevo 
+lo que haremos ahora. 
+
+<LinkPreview id="https://derivative.ca/community-post/tutorial/touchdesigners-data-model-tutorial/67032" title="TouchDesigner's Data Model - Tutorial" />
+
+<YouTube id="https://www.youtube.com/watch?v=j5tcicF9qr4" title="HOU2TOUCH FREE LESSON. Intro 2 Procedural workflow." />
+
+### Actividad 13: introducción a la creación de visuales interactivas
+
+Puedes descargar el proyecto de TouchDesigner utilizado en esta actividad:
+[sfi1-2026-20-u2-a3.toe](/interactivos1-2026-20/sfi1-2026-20-u2-a3.toe).
+
+#### Construcción guiada: un sistema visual generativo desde cero
+
+En esta actividad construiremos juntos, desde un proyecto vacío de
+TouchDesigner, un sistema visual generativo sencillo. El objetivo no es copiar
+una imagen terminada ni aprender muchos operadores, sino observar cómo una
+intención se convierte en entidades, relaciones, reglas, variaciones y
+parámetros dentro de una red.
+
+La intención común será producir un campo visual que pueda desplazarse entre
+dos comportamientos: **calma y continuidad** frente a **intensidad y
+fragmentación**, sin perder su identidad visual. Para lograrlo construiremos una
+red basada principalmente en TOPs:
+
+1. Crearemos un campo procedural con `Noise TOP`.
+2. Transformaremos sus valores para definir masas, bordes y contraste.
+3. Usaremos un segundo campo para deformar el primero con `Displace TOP`.
+4. Traduciremos los valores del campo a una paleta mediante `Ramp TOP` y
+   `Lookup TOP`.
+5. Compondremos el resultado y lo enviaremos a un `Null TOP` de salida.
+6. Agruparemos la red en un componente y expondremos sus controles principales
+   como parámetros personalizados.
+
+Mientras construimos la red relacionaremos cada decisión técnica con las
+operaciones de la mentalidad generativa:
+
+| Operación | Cómo aparecerá en el sistema |
+|---|---|
+| Intención | El tránsito entre calma/continuidad e intensidad/fragmentación. |
+| Entidades | Campos de valores, masas visuales, bordes y color. |
+| Relaciones | Un campo deforma a otro y sus valores determinan la paleta. |
+| Entradas | Controles manuales que más adelante podrán recibir eventos externos. |
+| Reglas | Generación, transformación, deformación, mapeo de color y composición. |
+| Invariantes | La paleta, la composición general y el lenguaje de movimiento. |
+| Variabilidad | El ruido, la evolución temporal y las combinaciones de parámetros. |
+| Curaduría | Comparar resultados, ajustar límites y conservar solo variaciones coherentes con la intención. |
+
+#### Parámetros que vamos a exponer
+
+El sistema debe poder controlarse sin entrar a modificar su red interna. Como
+mínimo expondremos los siguientes parámetros:
+
+| Parámetro | Tipo | Efecto esperado |
+|---|---|---|
+| `speed` | Continuo | Velocidad de evolución del campo. |
+| `scale` | Continuo | Escala espacial de las formas. |
+| `deformation` | Continuo | Intensidad con la que un campo deforma al otro. |
+| `colorShift` | Continuo | Desplazamiento dentro de la paleta. |
+| `pulse` | Evento | Cambio breve de luminosidad, escala o contraste. |
+| `freeze` | Evento | Regreso al campo inicial y mantenimiento de ese estado mientras está activo. |
+
+#### Las expresiones son las reglas del sistema
+
+Los parámetros no son controles aislados. Cada uno modifica una expresión en
+uno o varios operadores. Esas expresiones son las reglas que convierten la
+intención en comportamiento. Durante la construcción leeremos cada una en voz
+alta, cambiaremos sus valores y comprobaremos si el efecto coincide con lo que
+habíamos previsto.
+
+En los ejemplos aparece `op("/project1/generative_system").par.Reset`. Ese es
+el nombre interno que conserva el componente; en la interfaz el mismo control se
+lee como **Freeze Initial**.
+
+##### 1. Evolución temporal del campo principal
+
+En `noise_field`:
+
+```python
+period = op("/project1/generative_system").par.Scale * 0.7 + 0.45
+tx = absTime.seconds * op("/project1/generative_system").par.Speed * 0.12 * (1 - op("/project1/generative_system").par.Reset)
+tz = absTime.seconds * op("/project1/generative_system").par.Speed * 0.18 * (1 - op("/project1/generative_system").par.Reset)
+```
+
+La primera regla hace que `Scale` controle el tamaño espacial del campo. La
+segunda y la tercera hacen que el campo avance por el espacio de ruido con el
+tiempo. Los factores `0.12` y `0.18` son velocidades espaciales distintas:
+producen un movimiento diagonal y evitan que el campo se desplace de forma
+demasiado uniforme. Cuando se activa `Freeze Initial`, el factor `(1 - Reset)`
+se vuelve cero y el campo se mantiene en sus coordenadas iniciales.
+
+Los valores `0.7` y `0.45` no son verdades universales. Son decisiones de
+diseño: mantienen el periodo positivo y ubican la escala del ruido en un rango
+donde las formas se pueden leer sin volverse ni demasiado grandes ni demasiado
+fragmentadas.
+
+##### 2. Segundo campo y relación de deformación
+
+En `noise_motion`:
+
+```python
+period = op("/project1/generative_system").par.Scale * 0.45 + 0.25
+tx = -op("/project1/generative_system").par.Speed * 0.08 * absTime.seconds * (1 - op("/project1/generative_system").par.Reset)
+ty = op("/project1/generative_system").par.Speed * 0.06 * absTime.seconds * (1 - op("/project1/generative_system").par.Reset)
+```
+
+Este campo no se muestra directamente: funciona como una entidad que afecta a
+la primera. Su periodo más pequeño (`0.45` y `0.25`) crea un detalle espacial
+más fino que el campo principal. Los signos y las velocidades `0.08` y `0.06`
+introducen otra dirección de movimiento; la relación entre ambos campos es lo
+que produce la sensación de continuidad o fragmentación.
+
+En `displace_field`:
+
+```python
+displaceweightx = op("/project1/generative_system").par.Deformation * 0.35 + 0.05
+displaceweighty = op("/project1/generative_system").par.Deformation * 0.35 + 0.05
+```
+
+`Deformation` regula cuánto poder tiene el segundo campo sobre el primero. El
+`0.05` deja una deformación mínima para que la relación no desaparezca por
+completo; `0.35` limita el desplazamiento máximo para que la imagen no se
+rompa. Son constantes de estabilidad y legibilidad, no valores que deban
+memorizarse.
+
+##### 3. Contraste y legibilidad
+
+En `level_field`:
+
+```python
+inlow = 0.18
+inhigh = 0.82
+contrast = 1.15 + op("/project1/generative_system").par.Pulse * 0.45
+```
+
+`0.18` y `0.82` recortan los extremos del campo para hacer visibles las masas y
+los bordes. `1.15` conserva una imagen legible en el estado normal; `0.45`
+produce un aumento perceptible cuando llega el evento `Pulse`.
+
+##### 4. Mapeo de valores a color
+
+La `Ramp TOP` usa una rampa horizontal con estos puntos en
+`ramp_palette_keys`:
+
+| Posición | R | G | B | A |
+|---:|---:|---:|---:|---:|
+| 0.00 | 0.01 | 0.02 | 0.08 | 1.00 |
+| 0.30 | 0.02 | 0.20 | 0.50 | 1.00 |
+| 0.62 | 0.85 | 0.08 | 0.24 | 1.00 |
+| 1.00 | 1.00 | 0.72 | 0.08 | 1.00 |
+
+Estos colores son un invariante: ayudan a que las diferentes ejecuciones sigan
+perteneciendo al mismo sistema. El `Lookup TOP` convierte la luminancia del
+campo en posiciones dentro de esa rampa.
+
+En `ramp_palette` y `hsv_color`:
+
+```python
+phase = op("/project1/generative_system").par.Coloroffset / 360.0
+hueoffset = op("/project1/generative_system").par.Coloroffset
+huerange = 360
+saturationmult = 1.25
+```
+
+`Color Shift` se expresa en grados porque un ciclo de color completo tiene 360
+grados. La división entre `360.0` convierte esos grados al rango `0..1` que
+espera la fase de la rampa. El mismo valor se aplica al desplazamiento HSV para
+que la paleta y el ajuste de color respondan de forma coherente. `1.25` aumenta
+moderadamente la saturación sin convertir todos los valores en colores planos.
+
+##### 5. Evento `Pulse`
+
+```python
+valuemult = 1.0 + op("/project1/generative_system").par.Pulse * 0.2
+contrast = 1.0 + op("/project1/generative_system").par.Pulse * 0.35
+```
+
+El evento no cambia la identidad espacial del campo: aumenta temporalmente su
+presencia mediante valor y contraste. Los valores `0.2` y `0.35` son pequeños a
+propósito; el evento debe leerse como una pulsación, no como un cambio completo
+de sistema.
+
+##### 6. Semillas y reproducibilidad
+
+`noise_field` usa `seed = 7` y `noise_motion` usa `seed = 23`. No son números
+mágicos: son dos semillas distintas que permiten que los campos tengan
+identidades independientes y que el resultado pueda reproducirse. Si las
+cambias, cambia la familia de resultados; la regla de relación permanece.
+
+##### Cómo justificar una constante
+
+Para cada constante responderemos tres preguntas:
+
+1. ¿Qué rango de comportamiento permite?
+2. ¿Qué aspecto de la intención protege?
+3. ¿Qué ocurre si la duplicamos, la llevamos a cero o cambiamos su signo?
+
+Una constante queda justificada cuando podemos describir su efecto observable,
+explicar por qué ayuda a conservar la identidad del sistema y mostrar una
+prueba que descarte alternativas menos legibles.
+
+Al finalizar realizaremos tres pruebas:
+
+- Llevar cada parámetro a sus valores mínimo y máximo para observar sus límites.
+- Construir y guardar tres estados visuales diferentes producidos por la misma
+  red.
+- Activar repetidamente `pulse` y `freeze` para comprobar que los eventos
+  discretos producen respuestas visibles y predecibles.
+
+<Aside type="caution" title="Qué significa freeze en esta actividad">
+`freeze` no reinicia un reloj interno. Al activarlo, lleva los campos a sus
+coordenadas iniciales y los mantiene allí mientras está activo. El reinicio
+temporal verdadero —volver al inicio y continuar evolucionando desde allí— se
+trabajará más adelante, cuando estudiemos eventos y sincronización.
+</Aside>
+
+### Actividad 14: caso de estudio TDSyncStrudel
 
 En esta actividad vamos a analizar una herramienta que te permitirá conectar Strudel con TouchDesigner. Se trata 
 de [TDStrudelSync](https://github.com/juanferfranco/TDSyncStrudel).
 
-### Actividad 15: sincronización de audio y visuales
+<LinkPreview id="https://github.com/juanferfranco/TDSyncStrudel" 
+title="TDStrudelSync"
+/>
+
+### Actividad 15: Experimento de visuales
 
 Es hora de experimentar con la pieza que creaste en la actividad 09. La idea es que sincronices tu pieza de audio con 
 visuales generadas en TouchDesigner. Mira, por ahora no se trata de crear una obra final, sino de experimentar con 
-la sincronización de audio y visuales. La idea es que me muestres tu experimento al final de la sesión 2 de la semana 3.
+la sincronización de audio y visuales.
 
-### Actividad 16: superficies de control
+### Actividad 16: Experimento consuperficies de control
 
 En esta actividad vamos a conectar una superficie de control llamada [Open Stage Control](https://openstagecontrol.ammd.net/) 
 a TouchDesigner. La idea es que puedas controlar en tiempo real algunos parámetros de tus visuales generadas en TouchDesigner. 
-Vas a experimentar y mostrarme tu experimento al final de la sesión 1 de la semana 4.
 
-### Actividad 17: integración con el público
+
+### Actividad 17: Experimento de integración con el público
 
 En esta actividad vas a integrar al público en tu sistema performativo. Para ello utlizaremos un servidor web, un bridge OSC y 
-tu teléfono celular. Vas a mostrarme tu experimento en la sesión 2 de la semana 4.
+tu teléfono celular.
 
 
 ### Actividad 18: definición del concepto de proyecto
