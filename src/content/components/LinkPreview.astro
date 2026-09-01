@@ -1,0 +1,45 @@
+---
+interface Props {
+  id: string;
+  title?: string;
+}
+
+const { id, title } = Astro.props;
+let hostname = id;
+
+try {
+  hostname = new URL(id).hostname.replace(/^www\./, '');
+} catch {
+  hostname = id;
+}
+---
+
+<a class="link-preview" href={id} target="_blank" rel="noreferrer">
+  <span class="link-preview__domain">{hostname}</span>
+  <span class="link-preview__title">{title ?? id}</span>
+</a>
+
+<style>
+  .link-preview {
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 6px;
+    display: grid;
+    gap: 0.25rem;
+    margin: 1rem 0;
+    padding: 1rem;
+    text-decoration: none;
+  }
+
+  .link-preview:hover {
+    border-color: var(--sl-color-accent);
+  }
+
+  .link-preview__domain {
+    color: var(--sl-color-gray-3);
+    font-size: 0.875rem;
+  }
+
+  .link-preview__title {
+    overflow-wrap: anywhere;
+  }
+</style>

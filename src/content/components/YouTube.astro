@@ -1,0 +1,54 @@
+---
+interface Props {
+  id: string;
+  title?: string;
+}
+
+const { id, title = 'Video de YouTube' } = Astro.props;
+let videoId = '';
+
+try {
+  const videoUrl = new URL(id);
+
+  if (videoUrl.hostname.endsWith('youtu.be')) {
+    videoId = videoUrl.pathname.slice(1);
+  } else if (videoUrl.hostname.endsWith('youtube.com')) {
+    videoId = videoUrl.searchParams.get('v') ?? videoUrl.pathname.split('/').at(-1) ?? '';
+  }
+} catch {
+  videoId = '';
+}
+
+const embedUrl = videoId
+  ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}`
+  : '';
+---
+
+{embedUrl ? (
+  <div class="youtube-embed">
+    <iframe
+      src={embedUrl}
+      title={title}
+      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen
+    ></iframe>
+  </div>
+) : (
+  <p><a href={id}>{title}</a></p>
+)}
+
+<style>
+  .youtube-embed {
+    aspect-ratio: 16 / 9;
+    margin: 1.5rem 0;
+    max-width: 960px;
+  }
+
+  iframe {
+    border: 0;
+    height: 100%;
+    width: 100%;
+  }
+</style>

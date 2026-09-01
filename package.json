@@ -10,15 +10,15 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.41.4",
+    "@astrojs/markdown-remark": "^7.3.0",
+    "@astrojs/starlight": "^0.41.11",
     "@babel/runtime": "^7.26.10",
-    "astro": "^7.1.4",
-    "astro-embed": "^0.13.1",
+    "astro": "^7.2.10",
     "esbuild": ">=0.25.0",
     "p5": "^1.11.7",
     "rehype-mathjax": "^6.0.0",
     "remark-math": "^6.0.0",
-    "sharp": "^0.32.5"
+    "sharp": "^0.35.4"
   },
   "devDependencies": {
     "@types/p5": "^1.7.6",
