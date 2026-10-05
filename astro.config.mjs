@@ -31,8 +31,8 @@ export default defineConfig({
 					label: 'Fases',
 					items: [
 						{ label: 'Investigación', slug: 'phases/investigacion' },
-						{ label: 'Creación', slug: 'phases/creacion', badge: { text: 'Nuevo'} },
-						{ label: 'Performance', slug: 'phases/performance' },
+						{ label: 'Creación', slug: 'phases/creacion'},
+						{ label: 'Performance', slug: 'phases/performance', badge: { text: 'Nuevo'} },
 						{ label: 'Reflexión', slug: 'phases/reflexion' },
 					],
 				},
